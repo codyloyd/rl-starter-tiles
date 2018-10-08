@@ -1,6 +1,6 @@
 import * as PIXI from 'pixi.js';
-import tileset from './tileset/compiled_tileset_32x32.png'
-import tilesetJson from './tileset/compiled_tileset_32x32.json'
+import tileset from './tileset/DungeonCrawl_ProjectUtumnoTileset.png'
+import tilesetJson from './tileset/DungeonCrawl_ProjectUtumnoTileset.json'
 // import terrain from './tileset/Terrain.png';
 // import terrainJson from './tileset/Terrain.json';
 // import monsters from './tileset/Monsters.png';

@@ -337,7 +337,7 @@ class playScreen {
         if (visibleTiles[x + ',' + y]) {
           sprite.alpha = 1;
         } else if (this.level.exploredTiles[x + ',' + y]) {
-          sprite.alpha = 0.1;
+          sprite.alpha = 0.3;
         }
         if (items[`${x},${y}`]) {
           // sprite.alpha = 0;

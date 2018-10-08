@@ -48631,7 +48631,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var PlayerTemplate = exports.PlayerTemplate = {
   name: "ME",
   char: "@",
-  id: 4212,
+  id: 134,
   tileset: 'tileset',
   fg: _colors2.default.white,
   mixins: [_entityMixins.Movable, _entityMixins.PlayerActor, _entityMixins.InventoryHolder]
@@ -48640,7 +48640,7 @@ var PlayerTemplate = exports.PlayerTemplate = {
 var MonsterTemplate = exports.MonsterTemplate = {
   name: "Monster",
   char: "m",
-  id: 3880,
+  id: 260,
   tileset: 'tileset',
   fg: _colors2.default.green,
   mixins: [_entityMixins.Movable, _entityMixins.MonsterActor]
@@ -48658,7 +48658,7 @@ var RatTemplate = exports.RatTemplate = {
 var GoblinTemplate = exports.GoblinTemplate = {
   name: "Monster",
   char: "m",
-  id: 2936,
+  id: 76,
   tileset: 'tileset',
   fg: _colors2.default.indigo,
   mixins: [_entityMixins.Movable, _entityMixins.MonsterActor]
@@ -48715,7 +48715,7 @@ var Tile = function (_Glyph) {
 
 var floorTileTemplate = {
   name: 'floorTile',
-  id: 7857,
+  id: 861,
   tileset: 'tileset',
   fg: _colors2.default.darkGray,
   isWalkable: true
@@ -48729,22 +48729,22 @@ var wallTileTemplate = {
   blocksLight: true,
   bitMask: 0,
   bitMaskMap: {
-    0: 7877,
-    1: 7878,
-    2: 7877,
-    3: 7999,
-    4: 7997,
-    5: 7997,
-    6: 7758,
-    7: 7758,
-    8: 7877,
-    9: 7877,
-    10: 7759,
-    11: 7877,
-    12: 7757,
-    13: 7877,
-    14: 7758,
-    15: 7758
+    0: 1040,
+    1: 1040,
+    2: 1040,
+    3: 1040,
+    4: 1040,
+    5: 1040,
+    6: 1040,
+    7: 1040,
+    8: 1040,
+    9: 1040,
+    10: 1040,
+    11: 1040,
+    12: 1040,
+    13: 1040,
+    14: 1040,
+    15: 1040
   }
 };
 
@@ -48981,21 +48981,21 @@ var ItemRepository = exports.ItemRepository = new _repository2.default({ name: "
 
 ItemRepository.define({
   name: "healing potion",
-  id: 488,
+  id: 1602,
   tileset: 'tileset',
   fg: _colors2.default.red
 });
 
 ItemRepository.define({
   name: "food",
-  id: 827,
+  id: 1508,
   tileset: 'tileset',
   fg: _colors2.default.orange
 });
 
 ItemRepository.define({
   name: "mana potion",
-  id: 608,
+  id: 1731,
   tileset: 'tileset',
   fg: _colors2.default.blue
 });
@@ -49636,7 +49636,7 @@ var playScreen = function () {
           if (visibleTiles[x + ',' + y]) {
             sprite.alpha = 1;
           } else if (this.level.exploredTiles[x + ',' + y]) {
-            sprite.alpha = 0.1;
+            sprite.alpha = 0.3;
           }
           if (items[x + ',' + y]) {
             // sprite.alpha = 0;
@@ -49897,17 +49897,17 @@ var PlayerStatusDisplay = function () {
 }();
 
 exports.default = PlayerStatusDisplay;
-},{"./colors":10}],250:[function(require,module,exports) {
-module.exports="/dist/f305bfdb367620bbdb504e71bd1c6314.png";
-},{}],251:[function(require,module,exports) {
-module.exports = { "columns":120,
- "image":"compiled_tileset_32x32.png",
- "imageheight":3488,
- "imagewidth":3840,
+},{"./colors":10}],258:[function(require,module,exports) {
+module.exports="/dist/77a53788629b2387d4c43f3a73e7ad5c.png";
+},{}],257:[function(require,module,exports) {
+module.exports = { "columns":64,
+ "image":"DungeonCrawl_ProjectUtumnoTileset.png",
+ "imageheight":1536,
+ "imagewidth":2048,
  "margin":0,
- "name":"compiled_tileset_32x32",
+ "name":"DungeonCrawl_ProjectUtumnoTileset",
  "spacing":0,
- "tilecount":13080,
+ "tilecount":3072,
  "tileheight":32,
  "tilewidth":32,
  "type":"tileset"
@@ -49925,13 +49925,13 @@ var _pixi = require('pixi.js');
 
 var PIXI = _interopRequireWildcard(_pixi);
 
-var _compiled_tileset_32x = require('./tileset/compiled_tileset_32x32.png');
+var _DungeonCrawl_ProjectUtumnoTileset = require('./tileset/DungeonCrawl_ProjectUtumnoTileset.png');
 
-var _compiled_tileset_32x2 = _interopRequireDefault(_compiled_tileset_32x);
+var _DungeonCrawl_ProjectUtumnoTileset2 = _interopRequireDefault(_DungeonCrawl_ProjectUtumnoTileset);
 
-var _compiled_tileset_32x3 = require('./tileset/compiled_tileset_32x32.json');
+var _DungeonCrawl_ProjectUtumnoTileset3 = require('./tileset/DungeonCrawl_ProjectUtumnoTileset.json');
 
-var _compiled_tileset_32x4 = _interopRequireDefault(_compiled_tileset_32x3);
+var _DungeonCrawl_ProjectUtumnoTileset4 = _interopRequireDefault(_DungeonCrawl_ProjectUtumnoTileset3);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -49977,9 +49977,9 @@ var Display = function () {
     this.app.renderer.backgroundColor = 0x140c1c;
     PIXI.settings.SCALE_MODE = PIXI.SCALE_MODES.NEAREST;
 
-    PIXI.loader.add(_compiled_tileset_32x2.default).load(function () {
+    PIXI.loader.add(_DungeonCrawl_ProjectUtumnoTileset2.default).load(function () {
       _this.loaded = true;
-      _this.loadTileset(_compiled_tileset_32x2.default, _compiled_tileset_32x4.default, 'tileset');
+      _this.loadTileset(_DungeonCrawl_ProjectUtumnoTileset2.default, _DungeonCrawl_ProjectUtumnoTileset4.default, 'tileset');
       _this.app.ticker.add(function (delta) {
         return _this.animationLoop(delta);
       });
@@ -50142,7 +50142,7 @@ var Display = function () {
 }();
 
 exports.default = Display;
-},{"pixi.js":45,"./tileset/compiled_tileset_32x32.png":250,"./tileset/compiled_tileset_32x32.json":251}],2:[function(require,module,exports) {
+},{"pixi.js":45,"./tileset/DungeonCrawl_ProjectUtumnoTileset.png":258,"./tileset/DungeonCrawl_ProjectUtumnoTileset.json":257}],2:[function(require,module,exports) {
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {

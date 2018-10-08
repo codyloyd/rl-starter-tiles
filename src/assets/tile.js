@@ -17,7 +17,7 @@ class Tile extends Glyph {
 
 const floorTileTemplate = {
   name: 'floorTile',
-  id: 7857,
+  id: 861,
   tileset: 'tileset',
   fg: Colors.darkGray,
   isWalkable: true
@@ -31,22 +31,22 @@ const wallTileTemplate = {
   blocksLight: true,
   bitMask: 0,
   bitMaskMap: {
-    0: 7877,
-    1: 7878,
-    2: 7877,
-    3: 7999,
-    4: 7997,
-    5: 7997,
-    6: 7758,
-    7: 7758,
-    8: 7877,
-    9: 7877,
-    10: 7759,
-    11: 7877,
-    12: 7757,
-    13: 7877,
-    14: 7758,
-    15: 7758
+    0: 1040,
+    1: 1040,
+    2: 1040,
+    3: 1040,
+    4: 1040,
+    5: 1040,
+    6: 1040,
+    7: 1040,
+    8: 1040,
+    9: 1040,
+    10: 1040,
+    11: 1040,
+    12: 1040,
+    13: 1040,
+    14: 1040,
+    15: 1040
   }
 };
 

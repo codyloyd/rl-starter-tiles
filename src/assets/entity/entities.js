@@ -9,7 +9,7 @@ import {
 export const PlayerTemplate = {
   name: "ME",
   char: "@",
-  id: 4212,
+  id: 134,
   tileset: 'tileset',
   fg: Colors.white,
   mixins: [Movable, PlayerActor, InventoryHolder]
@@ -18,7 +18,7 @@ export const PlayerTemplate = {
 export const MonsterTemplate = {
   name: "Monster",
   char: "m",
-  id: 3880,
+  id: 260,
   tileset: 'tileset',
   fg: Colors.green,
   mixins: [Movable, MonsterActor]
@@ -36,7 +36,7 @@ export const RatTemplate = {
 export const GoblinTemplate = {
   name: "Monster",
   char: "m",
-  id: 2936,
+  id: 76,
   tileset: 'tileset',
   fg: Colors.indigo,
   mixins: [Movable, MonsterActor]
