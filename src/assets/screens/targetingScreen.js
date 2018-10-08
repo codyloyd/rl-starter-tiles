@@ -2,7 +2,8 @@ import ROT from 'rot-js';
 import Colors from '../colors';
 
 class TargetingScreen {
-  constructor(masterScreen) {
+  constructor(callback, masterScreen) {
+    this.callback = callback;
     this.masterScreen = masterScreen;
     this.x = this.masterScreen.player.x;
     this.y = this.masterScreen.player.y;
@@ -30,10 +31,13 @@ class TargetingScreen {
       this.targetSprite.destroy();
       this.masterScreen.exitSubscreen();
     }
+    if (inputData.keyCode === ROT.VK_RETURN) {
+      this.callback(this.x, this.y);
+    }
     const move = function(dX, dY) {
       this.x += dX;
       this.y += dY;
-      this.render()
+      this.render();
     }.bind(this);
     if (
       inputData.keyCode === ROT.VK_H ||

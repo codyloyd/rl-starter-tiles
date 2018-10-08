@@ -21,6 +21,7 @@ export default class Display {
     this.tilesetMapping = {};
     this.loaded = false;
     this.movingSprites = [];
+    this.projectileSprites = [];
     this.tileSize = {x: 16, y: 24};
 
     this.app = new PIXI.Application({
@@ -50,19 +51,94 @@ export default class Display {
         this.loadTileset(projectiles, projectilesJson, 'projectiles');
         this.loadTileset(ui, uiJson, 'ui');
         this.app.ticker.add(delta => this.animationLoop(delta));
+        this.app.ticker.add(delta => this.projectileLoop(delta));
       });
   }
 
+  addProjectile(sprite, x, y, onDestination) {
+    const sX = x - sprite.x;
+    const sY = y - sprite.y;
+    const theta = Math.atan2(sY, sX);
+    sprite.anchor.set(0.5, 0.5);
+    sprite.rotation = theta;
+    // Because the anchor offsets the positioning..
+    // we need to move the sprite down
+    sprite.x += sprite.width / 2;
+    sprite.y += sprite.height / 2;
+    x += sprite.width / 2;
+    y += sprite.height / 2;
+
+    this.projectileSprites.push({
+      sprite,
+      destination: [x, y],
+      onDestination
+    });
+  }
+
+  projectileLoop(delta) {
+    this.projectileSprites.forEach((movingSprite, i) => {
+      const x = movingSprite.destination[0];
+      const y = movingSprite.destination[1];
+      const sprite = movingSprite.sprite;
+      const vel = 6;
+      const sX = x - sprite.x;
+      const sY = y - sprite.y;
+      const theta = Math.atan2(sY, sX);
+      let dx = 0;
+      let dy = 0;
+      if (x !== sprite.x) {
+        dx = vel * Math.cos(theta) * delta;
+      }
+      if (y !== sprite.y) {
+        dy = vel * Math.sin(theta) * delta;
+      }
+      if (Math.abs(sprite.x - x) <= vel) {
+        dx = 0;
+        sprite.x = x;
+      }
+      if (Math.abs(sprite.y - y) <= vel * 1.5) {
+        dy = 0;
+        sprite.y = y;
+      }
+      if (sprite.x == x && sprite.y == y) {
+        if (movingSprite.onDestination) {
+          movingSprite.onDestination();
+        }
+        this.projectileSprites.splice(i, 1);
+      }
+      sprite.x += dx;
+      sprite.y += dy;
+    });
+  }
+
   moveSprite(sprite, x, y, onDestination) {
-    this.movingSprites.push({sprite, destination: [x, y], onDestination});
+    // if (rotate) {
+    //   const sX = x - sprite.x;
+    //   const sY = y - sprite.y;
+    //   const theta = Math.atan2(sY, sX);
+    //   sprite.anchor.set(0.5, 0.5);
+    //   sprite.rotation = theta;
+    //   // Because the anchor offsets the positioning..
+    //   // we need to move the sprite down
+    //   sprite.x += sprite.width / 2;
+    //   sprite.y += sprite.height / 2;
+    //   x += sprite.width / 2;
+    //   y += sprite.height / 2;
+    //   sprite.velocity = 6;
+    // }
+    this.movingSprites.push({
+      sprite,
+      destination: [x, y],
+      onDestination
+    });
   }
 
   animationLoop(delta) {
     this.movingSprites.forEach((movingSprite, i) => {
       const x = movingSprite.destination[0];
       const y = movingSprite.destination[1];
-      const vel = 4;
       const sprite = movingSprite.sprite;
+      const vel = 4;
       let dx = 0;
       let dy = 0;
       if (x > sprite.x) {

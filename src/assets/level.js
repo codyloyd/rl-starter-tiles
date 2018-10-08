@@ -79,7 +79,10 @@ class Level {
   getEntityAt(x, y) {
     return this.entities[x + ',' + y];
   }
-
+  getItemAt(x, y) {
+    return this.items[x + ',' + y];
+  }
+  
   updateEntityPosition(oldX, oldY, newX, newY) {
     this.entities[newX + ',' + newY] = this.entities[oldX + ',' + oldY];
     delete this.entities[oldX + ',' + oldY];

@@ -2,7 +2,7 @@ import ROT from 'rot-js';
 import * as PIXI from 'pixi.js';
 import Entity from '../entity/entity';
 import gameOverScreen from './gameOverScreen';
-import Colors from "../colors"
+import Colors from '../colors';
 import ItemListDialog from './itemListDialog';
 import Confirmation from './confirmation';
 import HelpScreen from './helpScreen';
@@ -205,23 +205,27 @@ class playScreen {
     } else if (inputData.keyCode === ROT.VK_F) {
       // fire projectile
       // bad code needs refactor
-      const bullet = new Projectile(
-        Object.assign(
-          {
-            x: this.player.x,
-            y: this.player.y,
-            game: this.game
-          },
-          bulletTemplate
-        )
+      this.enterSubscreen(
+        new TargetingScreen((x, y) => {
+          const bullet = new Projectile(
+            Object.assign(
+              {
+                x: this.player.x,
+                y: this.player.y,
+                game: this.game
+              },
+              bulletTemplate
+            )
+          );
+          this.levelSprites.addChild(bullet.sprite);
+          const destx = x * this.game.display.tileSize.x;
+          const desty = y * this.game.display.tileSize.y;
+          this.game.display.addProjectile(bullet.sprite, destx, desty, () => {
+            this.game.getEngine().unlock();
+            bullet.onDestination();
+          }, true);
+        }, this)
       );
-      this.levelSprites.addChild(bullet.sprite);
-      const x = (this.player.getX() - 5) * this.game.display.tileSize.x;
-      const y = this.player.getY() * this.game.display.tileSize.y;
-      this.game.display.moveSprite(bullet.sprite, x, y, () => {
-        this.game.getEngine().unlock();
-        bullet.onDestination();
-      });
     }
     // subscreens
     if (inputData.keyCode == ROT.VK_I) {
@@ -231,7 +235,21 @@ class playScreen {
       this.enterSubscreen(new HelpScreen(this));
     }
     if (inputData.keyCode == ROT.VK_X) {
-      this.enterSubscreen(new TargetingScreen(this));
+      this.enterSubscreen(
+        new TargetingScreen((x, y) => {
+          const entity = this.level.getEntityAt(x, y);
+          const item = this.level.getItemAt(x, y);
+          if (entity) {
+            this.game.messageDisplay.add('this is ' + entity.describeA());
+          }
+          if (item) {
+            this.game.messageDisplay.add('this is ' + item.describeA());
+          }
+          if (!item && !entity) {
+            this.game.messageDisplay.add('you see nothing here');
+          }
+        }, this)
+      );
     }
   }
 
