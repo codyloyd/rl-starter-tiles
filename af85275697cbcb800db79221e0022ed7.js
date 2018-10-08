@@ -49415,7 +49415,7 @@ var playScreen = function () {
           var tile = this.map.getTile(x, y);
           var sprite = void 0;
           if (!tile.bitMaskMap) {
-            sprite = new PIXI.Sprite(this.game.display.tilesetMapping[tile.tileset][tile.id]);
+            sprite = new PIXI.Sprite(this.game.display.tilesetMapping[tile.tileset][maybeRandom(tile.id)]);
           } else {
             sprite = new PIXI.Sprite(this.game.display.tilesetMapping[tile.tileset][maybeRandom(tile.bitMaskMap[tile.bitMask])]);
           }
@@ -49897,9 +49897,9 @@ var PlayerStatusDisplay = function () {
 }();
 
 exports.default = PlayerStatusDisplay;
-},{"./colors":10}],11:[function(require,module,exports) {
+},{"./colors":10}],261:[function(require,module,exports) {
 module.exports="/dist/e7f8283479323eacd4bd674d8e240173.png";
-},{}],12:[function(require,module,exports) {
+},{}],262:[function(require,module,exports) {
 module.exports = { "columns":16,
  "image":"Terrain.png",
  "imageheight":264,
@@ -49912,9 +49912,9 @@ module.exports = { "columns":16,
  "tilewidth":16,
  "type":"tileset"
 };
-},{}],13:[function(require,module,exports) {
+},{}],263:[function(require,module,exports) {
 module.exports="/dist/ef7f6b188658270d0f472ec477169605.png";
-},{}],14:[function(require,module,exports) {
+},{}],264:[function(require,module,exports) {
 module.exports = { "columns":19,
  "image":"Monsters.png",
  "imageheight":624,
@@ -49927,9 +49927,9 @@ module.exports = { "columns":19,
  "tilewidth":16,
  "type":"tileset"
 };
-},{}],16:[function(require,module,exports) {
+},{}],265:[function(require,module,exports) {
 module.exports="/dist/a5b3fd72c5b13484f723c33686c9a228.png";
-},{}],15:[function(require,module,exports) {
+},{}],266:[function(require,module,exports) {
 module.exports = { "columns":20,
  "image":"Terrain_Objects.png",
  "imageheight":288,
@@ -49942,9 +49942,9 @@ module.exports = { "columns":20,
  "tilewidth":16,
  "type":"tileset"
 };
-},{}],17:[function(require,module,exports) {
+},{}],267:[function(require,module,exports) {
 module.exports="/dist/007fc9afe7370ba35bf81ae5c2b6bf04.png";
-},{}],18:[function(require,module,exports) {
+},{}],268:[function(require,module,exports) {
 module.exports = { "columns":7,
  "image":"Avatar.png",
  "imageheight":48,
@@ -49957,9 +49957,9 @@ module.exports = { "columns":7,
  "tilewidth":16,
  "type":"tileset"
 };
-},{}],19:[function(require,module,exports) {
+},{}],269:[function(require,module,exports) {
 module.exports="/dist/29ea8f4a2e497c24fa3ae6645717f565.png";
-},{}],20:[function(require,module,exports) {
+},{}],270:[function(require,module,exports) {
 module.exports = { "columns":20,
  "image":"Items.png",
  "imageheight":312,
@@ -49972,9 +49972,9 @@ module.exports = { "columns":20,
  "tilewidth":16,
  "type":"tileset"
 };
-},{}],21:[function(require,module,exports) {
+},{}],271:[function(require,module,exports) {
 module.exports="/dist/b84a0d5bc6162ac86b6c23d0b4f6f9fa.png";
-},{}],22:[function(require,module,exports) {
+},{}],272:[function(require,module,exports) {
 module.exports = { "columns":5,
  "image":"FX_Projectiles.png",
  "imageheight":144,
@@ -49987,9 +49987,9 @@ module.exports = { "columns":5,
  "tilewidth":16,
  "type":"tileset"
 };
-},{}],23:[function(require,module,exports) {
+},{}],273:[function(require,module,exports) {
 module.exports="/dist/2b02821b3df08fac540cef1b532841a7.png";
-},{}],24:[function(require,module,exports) {
+},{}],274:[function(require,module,exports) {
 module.exports = { "columns":20,
  "image":"Interface.png",
  "imageheight":144,
@@ -50271,7 +50271,7 @@ var Display = function () {
 }();
 
 exports.default = Display;
-},{"pixi.js":45,"./tileset/Terrain.png":11,"./tileset/Terrain.json":12,"./tileset/Monsters.png":13,"./tileset/Monsters.json":14,"./tileset/Terrain_Objects.png":16,"./tileset/Terrain_Objects.json":15,"./tileset/Avatar.png":17,"./tileset/Avatar.json":18,"./tileset/Items.png":19,"./tileset/Items.json":20,"./tileset/FX_Projectiles.png":21,"./tileset/FX_Projectiles.json":22,"./tileset/Interface.png":23,"./tileset/Interface.json":24}],2:[function(require,module,exports) {
+},{"pixi.js":45,"./tileset/Terrain.png":261,"./tileset/Terrain.json":262,"./tileset/Monsters.png":263,"./tileset/Monsters.json":264,"./tileset/Terrain_Objects.png":265,"./tileset/Terrain_Objects.json":266,"./tileset/Avatar.png":267,"./tileset/Avatar.json":268,"./tileset/Items.png":269,"./tileset/Items.json":270,"./tileset/FX_Projectiles.png":271,"./tileset/FX_Projectiles.json":272,"./tileset/Interface.png":273,"./tileset/Interface.json":274}],2:[function(require,module,exports) {
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -50397,7 +50397,7 @@ window.onload = function () {
     game.switchScreen(_startScreen2.default);
   }
 };
-},{"rot-js":43,"./screens/startScreen":8,"./messageDisplay":5,"./playerStatusDisplay":6,"./display":7}],247:[function(require,module,exports) {
+},{"rot-js":43,"./screens/startScreen":8,"./messageDisplay":5,"./playerStatusDisplay":6,"./display":7}],276:[function(require,module,exports) {
 
 var global = (1, eval)('this');
 var OldModule = module.bundle.Module;
@@ -50520,5 +50520,5 @@ function hmrAccept(bundle, id) {
     return hmrAccept(global.require, id);
   });
 }
-},{}]},{},[247,2])
+},{}]},{},[276,2])
 //# sourceMappingURL=/dist/af85275697cbcb800db79221e0022ed7.map
