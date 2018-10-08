@@ -51,7 +51,7 @@ class playScreen {
         let sprite;
         if (!tile.bitMaskMap) {
           sprite = new PIXI.Sprite(
-            this.game.display.tilesetMapping[tile.tileset][tile.id]
+            this.game.display.tilesetMapping[tile.tileset][maybeRandom(tile.id)]
           );
         } else {
           sprite = new PIXI.Sprite(
