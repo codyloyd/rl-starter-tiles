@@ -48631,8 +48631,8 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var PlayerTemplate = exports.PlayerTemplate = {
   name: "ME",
   char: "@",
-  id: 1,
-  tileset: 'avatar',
+  id: 4212,
+  tileset: 'tileset',
   fg: _colors2.default.white,
   mixins: [_entityMixins.Movable, _entityMixins.PlayerActor, _entityMixins.InventoryHolder]
 };
@@ -48640,8 +48640,8 @@ var PlayerTemplate = exports.PlayerTemplate = {
 var MonsterTemplate = exports.MonsterTemplate = {
   name: "Monster",
   char: "m",
-  id: 278,
-  tileset: 'monsters',
+  id: 3880,
+  tileset: 'tileset',
   fg: _colors2.default.green,
   mixins: [_entityMixins.Movable, _entityMixins.MonsterActor]
 };
@@ -48649,8 +48649,8 @@ var MonsterTemplate = exports.MonsterTemplate = {
 var RatTemplate = exports.RatTemplate = {
   name: "Monster",
   char: "m",
-  id: 77,
-  tileset: 'monsters',
+  id: 3880,
+  tileset: 'tileset',
   fg: _colors2.default.brown,
   mixins: [_entityMixins.Movable, _entityMixins.MonsterActor]
 };
@@ -48658,8 +48658,8 @@ var RatTemplate = exports.RatTemplate = {
 var GoblinTemplate = exports.GoblinTemplate = {
   name: "Monster",
   char: "m",
-  id: 163,
-  tileset: 'monsters',
+  id: 2936,
+  tileset: 'tileset',
   fg: _colors2.default.indigo,
   mixins: [_entityMixins.Movable, _entityMixins.MonsterActor]
 };
@@ -48715,36 +48715,36 @@ var Tile = function (_Glyph) {
 
 var floorTileTemplate = {
   name: 'floorTile',
-  id: 8,
-  tileset: 'terrainObjects',
+  id: 7857,
+  tileset: 'tileset',
   fg: _colors2.default.darkGray,
   isWalkable: true
 };
 
 var wallTileTemplate = {
   name: 'wallTile',
-  id: 13,
-  tileset: 'terrain',
+  id: 7877,
+  tileset: 'tileset',
   fg: _colors2.default.lightGray,
   blocksLight: true,
   bitMask: 0,
   bitMaskMap: {
-    0: 48,
-    1: [48, 48, 48, 48, 49, 49, 50],
-    2: [48, 48, 48, 48, 49, 49, 50],
-    3: [48, 48, 48, 48, 49, 49, 50],
-    4: [48, 48, 48, 48, 49, 49, 50],
-    5: [48, 48, 48, 48, 49, 49, 50],
-    6: [48, 48, 48, 48, 49, 49, 50],
-    7: [48, 48, 48, 48, 49, 49, 50],
-    8: [104, 104, 104, 104, 104, 104, 104, 104, 104, 105, 107],
-    9: [104, 104, 104, 104, 104, 104, 104, 104, 104, 105, 107],
-    10: [104, 104, 104, 104, 104, 104, 104, 104, 104, 105, 107],
-    11: [104, 104, 104, 104, 104, 104, 104, 104, 104, 105, 107],
-    12: [104, 104, 104, 104, 104, 104, 104, 104, 104, 105, 107],
-    13: [104, 104, 104, 104, 104, 104, 104, 104, 104, 105, 107],
-    14: [104, 104, 104, 104, 104, 104, 104, 104, 104, 105, 107],
-    15: [104, 104, 104, 104, 104, 104, 104, 104, 104, 105, 107]
+    0: 7877,
+    1: 7878,
+    2: 7877,
+    3: 7999,
+    4: 7997,
+    5: 7997,
+    6: 7758,
+    7: 7758,
+    8: 7877,
+    9: 7877,
+    10: 7759,
+    11: 7877,
+    12: 7757,
+    13: 7877,
+    14: 7758,
+    15: 7758
   }
 };
 
@@ -48981,22 +48981,22 @@ var ItemRepository = exports.ItemRepository = new _repository2.default({ name: "
 
 ItemRepository.define({
   name: "healing potion",
-  id: 63,
-  tileset: 'items',
+  id: 488,
+  tileset: 'tileset',
   fg: _colors2.default.red
 });
 
 ItemRepository.define({
   name: "food",
-  id: 53,
-  tileset: 'items',
+  id: 827,
+  tileset: 'tileset',
   fg: _colors2.default.orange
 });
 
 ItemRepository.define({
   name: "mana potion",
-  id: 60,
-  tileset: 'items',
+  id: 608,
+  tileset: 'tileset',
   fg: _colors2.default.blue
 });
 // ItemRepository.define({
@@ -49421,7 +49421,7 @@ var playScreen = function () {
           }
           sprite.x = x * this.game.display.tileSize.x;
           sprite.y = y * this.game.display.tileSize.y;
-          sprite.tint = '0x' + tile.fg.substring(1);
+          // sprite.tint = `0x${tile.fg.substring(1)}`;
           sprite.alpha = 0;
           this.mapSprites.addChild(sprite);
         }
@@ -49445,7 +49445,7 @@ var playScreen = function () {
         var sprite = new PIXI.Sprite(_this.game.display.tilesetMapping[entity.tileset][entity.id]);
         sprite.index = entity.index;
         sprite.alpha = 1;
-        sprite.tint = '0x' + entity.fg.substring(1);
+        // sprite.tint = `0x${entity.fg.substring(1)}`;
         sprite.position.set(entity.getX() * _this.game.display.tileSize.x, entity.getY() * _this.game.display.tileSize.y);
         _this.entitySprites.addChild(sprite);
       });
@@ -49463,7 +49463,7 @@ var playScreen = function () {
         var sprite = new PIXI.Sprite(_this.game.display.tilesetMapping[item.tileset][item.id]);
         sprite.index = item.index;
         sprite.alpha = 1;
-        sprite.tint = _colors2.default.getHex(item.fg);
+        // sprite.tint = Colors.getHex(item.fg);
         sprite.position.set(x * _this.game.display.tileSize.x, y * _this.game.display.tileSize.y);
         _this.itemSprites.addChild(sprite);
       });
@@ -49639,7 +49639,7 @@ var playScreen = function () {
             sprite.alpha = 0.1;
           }
           if (items[x + ',' + y]) {
-            sprite.alpha = 0;
+            // sprite.alpha = 0;
           }
         }
       }
@@ -49897,109 +49897,19 @@ var PlayerStatusDisplay = function () {
 }();
 
 exports.default = PlayerStatusDisplay;
-},{"./colors":10}],11:[function(require,module,exports) {
-module.exports="/dist/e7f8283479323eacd4bd674d8e240173.png";
-},{}],12:[function(require,module,exports) {
-module.exports = { "columns":16,
- "image":"Terrain.png",
- "imageheight":264,
- "imagewidth":256,
+},{"./colors":10}],250:[function(require,module,exports) {
+module.exports="/dist/f305bfdb367620bbdb504e71bd1c6314.png";
+},{}],251:[function(require,module,exports) {
+module.exports = { "columns":120,
+ "image":"compiled_tileset_32x32.png",
+ "imageheight":3488,
+ "imagewidth":3840,
  "margin":0,
- "name":"Terrain",
+ "name":"compiled_tileset_32x32",
  "spacing":0,
- "tilecount":176,
- "tileheight":24,
- "tilewidth":16,
- "type":"tileset"
-};
-},{}],13:[function(require,module,exports) {
-module.exports="/dist/ef7f6b188658270d0f472ec477169605.png";
-},{}],14:[function(require,module,exports) {
-module.exports = { "columns":19,
- "image":"Monsters.png",
- "imageheight":624,
- "imagewidth":304,
- "margin":0,
- "name":"Monsters",
- "spacing":0,
- "tilecount":494,
- "tileheight":24,
- "tilewidth":16,
- "type":"tileset"
-};
-},{}],16:[function(require,module,exports) {
-module.exports="/dist/a5b3fd72c5b13484f723c33686c9a228.png";
-},{}],15:[function(require,module,exports) {
-module.exports = { "columns":20,
- "image":"Terrain_Objects.png",
- "imageheight":288,
- "imagewidth":320,
- "margin":0,
- "name":"Terrain_Objects",
- "spacing":0,
- "tilecount":240,
- "tileheight":24,
- "tilewidth":16,
- "type":"tileset"
-};
-},{}],17:[function(require,module,exports) {
-module.exports="/dist/007fc9afe7370ba35bf81ae5c2b6bf04.png";
-},{}],18:[function(require,module,exports) {
-module.exports = { "columns":7,
- "image":"Avatar.png",
- "imageheight":48,
- "imagewidth":112,
- "margin":0,
- "name":"Avatar",
- "spacing":0,
- "tilecount":14,
- "tileheight":24,
- "tilewidth":16,
- "type":"tileset"
-};
-},{}],19:[function(require,module,exports) {
-module.exports="/dist/29ea8f4a2e497c24fa3ae6645717f565.png";
-},{}],20:[function(require,module,exports) {
-module.exports = { "columns":20,
- "image":"Items.png",
- "imageheight":312,
- "imagewidth":320,
- "margin":0,
- "name":"Items",
- "spacing":0,
- "tilecount":260,
- "tileheight":24,
- "tilewidth":16,
- "type":"tileset"
-};
-},{}],21:[function(require,module,exports) {
-module.exports="/dist/b84a0d5bc6162ac86b6c23d0b4f6f9fa.png";
-},{}],22:[function(require,module,exports) {
-module.exports = { "columns":5,
- "image":"FX_Projectiles.png",
- "imageheight":144,
- "imagewidth":80,
- "margin":0,
- "name":"FX_Projectiles",
- "spacing":0,
- "tilecount":30,
- "tileheight":24,
- "tilewidth":16,
- "type":"tileset"
-};
-},{}],23:[function(require,module,exports) {
-module.exports="/dist/2b02821b3df08fac540cef1b532841a7.png";
-},{}],24:[function(require,module,exports) {
-module.exports = { "columns":20,
- "image":"Interface.png",
- "imageheight":144,
- "imagewidth":320,
- "margin":0,
- "name":"Interface",
- "spacing":0,
- "tilecount":120,
- "tileheight":24,
- "tilewidth":16,
+ "tilecount":13080,
+ "tileheight":32,
+ "tilewidth":32,
  "type":"tileset"
 };
 },{}],7:[function(require,module,exports) {
@@ -50015,67 +49925,34 @@ var _pixi = require('pixi.js');
 
 var PIXI = _interopRequireWildcard(_pixi);
 
-var _Terrain = require('./tileset/Terrain.png');
+var _compiled_tileset_32x = require('./tileset/compiled_tileset_32x32.png');
 
-var _Terrain2 = _interopRequireDefault(_Terrain);
+var _compiled_tileset_32x2 = _interopRequireDefault(_compiled_tileset_32x);
 
-var _Terrain3 = require('./tileset/Terrain.json');
+var _compiled_tileset_32x3 = require('./tileset/compiled_tileset_32x32.json');
 
-var _Terrain4 = _interopRequireDefault(_Terrain3);
-
-var _Monsters = require('./tileset/Monsters.png');
-
-var _Monsters2 = _interopRequireDefault(_Monsters);
-
-var _Monsters3 = require('./tileset/Monsters.json');
-
-var _Monsters4 = _interopRequireDefault(_Monsters3);
-
-var _Terrain_Objects = require('./tileset/Terrain_Objects.png');
-
-var _Terrain_Objects2 = _interopRequireDefault(_Terrain_Objects);
-
-var _Terrain_Objects3 = require('./tileset/Terrain_Objects.json');
-
-var _Terrain_Objects4 = _interopRequireDefault(_Terrain_Objects3);
-
-var _Avatar = require('./tileset/Avatar.png');
-
-var _Avatar2 = _interopRequireDefault(_Avatar);
-
-var _Avatar3 = require('./tileset/Avatar.json');
-
-var _Avatar4 = _interopRequireDefault(_Avatar3);
-
-var _Items = require('./tileset/Items.png');
-
-var _Items2 = _interopRequireDefault(_Items);
-
-var _Items3 = require('./tileset/Items.json');
-
-var _Items4 = _interopRequireDefault(_Items3);
-
-var _FX_Projectiles = require('./tileset/FX_Projectiles.png');
-
-var _FX_Projectiles2 = _interopRequireDefault(_FX_Projectiles);
-
-var _FX_Projectiles3 = require('./tileset/FX_Projectiles.json');
-
-var _FX_Projectiles4 = _interopRequireDefault(_FX_Projectiles3);
-
-var _Interface = require('./tileset/Interface.png');
-
-var _Interface2 = _interopRequireDefault(_Interface);
-
-var _Interface3 = require('./tileset/Interface.json');
-
-var _Interface4 = _interopRequireDefault(_Interface3);
+var _compiled_tileset_32x4 = _interopRequireDefault(_compiled_tileset_32x3);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+// import terrain from './tileset/Terrain.png';
+// import terrainJson from './tileset/Terrain.json';
+// import monsters from './tileset/Monsters.png';
+// import monstersJson from './tileset/Monsters.json';
+// import terrainObjects from './tileset/Terrain_Objects.png';
+// import terrainObjectsJson from './tileset/Terrain_Objects.json';
+// import avatar from './tileset/Avatar.png';
+// import avatarJson from './tileset/Avatar.json';
+// import items from './tileset/Items.png';
+// import itemsJson from './tileset/Items.json';
+// import projectiles from './tileset/FX_Projectiles.png';
+// import projectilesJson from './tileset/FX_Projectiles.json';
+// import ui from './tileset/Interface.png';
+// import uiJson from './tileset/Interface.json';
 
 var Display = function () {
   function Display(screenWidth, screenHeight) {
@@ -50089,7 +49966,7 @@ var Display = function () {
     this.loaded = false;
     this.movingSprites = [];
     this.projectileSprites = [];
-    this.tileSize = { x: 16, y: 24 };
+    this.tileSize = { x: 32, y: 32 };
 
     this.app = new PIXI.Application({
       width: this.screenWidth * this.tileSize.x,
@@ -50100,15 +49977,9 @@ var Display = function () {
     this.app.renderer.backgroundColor = 0x140c1c;
     PIXI.settings.SCALE_MODE = PIXI.SCALE_MODES.NEAREST;
 
-    PIXI.loader.add(_Terrain2.default).add(_Avatar2.default).add(_Terrain_Objects2.default).add(_Monsters2.default).add(_Items2.default).add(_FX_Projectiles2.default).add(_Interface2.default).load(function () {
+    PIXI.loader.add(_compiled_tileset_32x2.default).load(function () {
       _this.loaded = true;
-      _this.loadTileset(_Terrain2.default, _Terrain4.default, 'terrain');
-      _this.loadTileset(_Terrain_Objects2.default, _Terrain_Objects4.default, 'terrainObjects');
-      _this.loadTileset(_Monsters2.default, _Monsters4.default, 'monsters');
-      _this.loadTileset(_Avatar2.default, _Avatar4.default, 'avatar');
-      _this.loadTileset(_Items2.default, _Items4.default, 'items');
-      _this.loadTileset(_FX_Projectiles2.default, _FX_Projectiles4.default, 'projectiles');
-      _this.loadTileset(_Interface2.default, _Interface4.default, 'ui');
+      _this.loadTileset(_compiled_tileset_32x2.default, _compiled_tileset_32x4.default, 'tileset');
       _this.app.ticker.add(function (delta) {
         return _this.animationLoop(delta);
       });
@@ -50271,7 +50142,7 @@ var Display = function () {
 }();
 
 exports.default = Display;
-},{"pixi.js":45,"./tileset/Terrain.png":11,"./tileset/Terrain.json":12,"./tileset/Monsters.png":13,"./tileset/Monsters.json":14,"./tileset/Terrain_Objects.png":16,"./tileset/Terrain_Objects.json":15,"./tileset/Avatar.png":17,"./tileset/Avatar.json":18,"./tileset/Items.png":19,"./tileset/Items.json":20,"./tileset/FX_Projectiles.png":21,"./tileset/FX_Projectiles.json":22,"./tileset/Interface.png":23,"./tileset/Interface.json":24}],2:[function(require,module,exports) {
+},{"pixi.js":45,"./tileset/compiled_tileset_32x32.png":250,"./tileset/compiled_tileset_32x32.json":251}],2:[function(require,module,exports) {
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -50311,8 +50182,8 @@ var Game = function () {
     _classCallCheck(this, Game);
 
     console.log('game');
-    this.screenWidth = 60;
-    this.screenHeight = 26;
+    this.screenWidth = 22;
+    this.screenHeight = 22;
     this.scheduler = new _rotJs2.default.Scheduler.Speed();
     this.engine = new _rotJs2.default.Engine(this.scheduler);
     this.display = new _display2.default(this.screenWidth, this.screenHeight);
@@ -50397,7 +50268,7 @@ window.onload = function () {
     game.switchScreen(_startScreen2.default);
   }
 };
-},{"rot-js":43,"./screens/startScreen":8,"./messageDisplay":5,"./playerStatusDisplay":6,"./display":7}],247:[function(require,module,exports) {
+},{"rot-js":43,"./screens/startScreen":8,"./messageDisplay":5,"./playerStatusDisplay":6,"./display":7}],256:[function(require,module,exports) {
 
 var global = (1, eval)('this');
 var OldModule = module.bundle.Module;
@@ -50520,5 +50391,5 @@ function hmrAccept(bundle, id) {
     return hmrAccept(global.require, id);
   });
 }
-},{}]},{},[247,2])
+},{}]},{},[256,2])
 //# sourceMappingURL=/dist/af85275697cbcb800db79221e0022ed7.map

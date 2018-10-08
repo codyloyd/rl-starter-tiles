@@ -9,8 +9,8 @@ import {
 export const PlayerTemplate = {
   name: "ME",
   char: "@",
-  id: 1,
-  tileset: 'avatar',
+  id: 4212,
+  tileset: 'tileset',
   fg: Colors.white,
   mixins: [Movable, PlayerActor, InventoryHolder]
 };
@@ -18,8 +18,8 @@ export const PlayerTemplate = {
 export const MonsterTemplate = {
   name: "Monster",
   char: "m",
-  id: 278,
-  tileset: 'monsters',
+  id: 3880,
+  tileset: 'tileset',
   fg: Colors.green,
   mixins: [Movable, MonsterActor]
 };
@@ -27,8 +27,8 @@ export const MonsterTemplate = {
 export const RatTemplate = {
   name: "Monster",
   char: "m",
-  id: 77,
-  tileset: 'monsters',
+  id: 3880,
+  tileset: 'tileset',
   fg: Colors.brown,
   mixins: [Movable, MonsterActor]
 };
@@ -36,8 +36,8 @@ export const RatTemplate = {
 export const GoblinTemplate = {
   name: "Monster",
   char: "m",
-  id: 163,
-  tileset: 'monsters',
+  id: 2936,
+  tileset: 'tileset',
   fg: Colors.indigo,
   mixins: [Movable, MonsterActor]
 };

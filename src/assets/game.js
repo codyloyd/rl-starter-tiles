@@ -7,8 +7,8 @@ import Display from './display';
 class Game {
   constructor() {
     console.log('game');
-    this.screenWidth = 60;
-    this.screenHeight = 26;
+    this.screenWidth = 22;
+    this.screenHeight = 22;
     this.scheduler = new ROT.Scheduler.Speed();
     this.engine = new ROT.Engine(this.scheduler);
     this.display = new Display(this.screenWidth, this.screenHeight);

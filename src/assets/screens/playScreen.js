@@ -62,7 +62,7 @@ class playScreen {
         }
         sprite.x = x * this.game.display.tileSize.x;
         sprite.y = y * this.game.display.tileSize.y;
-        sprite.tint = `0x${tile.fg.substring(1)}`;
+        // sprite.tint = `0x${tile.fg.substring(1)}`;
         sprite.alpha = 0;
         this.mapSprites.addChild(sprite);
       }
@@ -91,7 +91,7 @@ class playScreen {
       );
       sprite.index = entity.index;
       sprite.alpha = 1;
-      sprite.tint = `0x${entity.fg.substring(1)}`;
+      // sprite.tint = `0x${entity.fg.substring(1)}`;
       sprite.position.set(
         entity.getX() * this.game.display.tileSize.x,
         entity.getY() * this.game.display.tileSize.y
@@ -110,7 +110,7 @@ class playScreen {
       );
       sprite.index = item.index;
       sprite.alpha = 1;
-      sprite.tint = Colors.getHex(item.fg);
+      // sprite.tint = Colors.getHex(item.fg);
       sprite.position.set(
         x * this.game.display.tileSize.x,
         y * this.game.display.tileSize.y
@@ -340,7 +340,7 @@ class playScreen {
           sprite.alpha = 0.1;
         }
         if (items[`${x},${y}`]) {
-          sprite.alpha = 0;
+          // sprite.alpha = 0;
         }
       }
     }

@@ -1,18 +1,20 @@
 import * as PIXI from 'pixi.js';
-import terrain from './tileset/Terrain.png';
-import terrainJson from './tileset/Terrain.json';
-import monsters from './tileset/Monsters.png';
-import monstersJson from './tileset/Monsters.json';
-import terrainObjects from './tileset/Terrain_Objects.png';
-import terrainObjectsJson from './tileset/Terrain_Objects.json';
-import avatar from './tileset/Avatar.png';
-import avatarJson from './tileset/Avatar.json';
-import items from './tileset/Items.png';
-import itemsJson from './tileset/Items.json';
-import projectiles from './tileset/FX_Projectiles.png';
-import projectilesJson from './tileset/FX_Projectiles.json';
-import ui from './tileset/Interface.png';
-import uiJson from './tileset/Interface.json';
+import tileset from './tileset/compiled_tileset_32x32.png'
+import tilesetJson from './tileset/compiled_tileset_32x32.json'
+// import terrain from './tileset/Terrain.png';
+// import terrainJson from './tileset/Terrain.json';
+// import monsters from './tileset/Monsters.png';
+// import monstersJson from './tileset/Monsters.json';
+// import terrainObjects from './tileset/Terrain_Objects.png';
+// import terrainObjectsJson from './tileset/Terrain_Objects.json';
+// import avatar from './tileset/Avatar.png';
+// import avatarJson from './tileset/Avatar.json';
+// import items from './tileset/Items.png';
+// import itemsJson from './tileset/Items.json';
+// import projectiles from './tileset/FX_Projectiles.png';
+// import projectilesJson from './tileset/FX_Projectiles.json';
+// import ui from './tileset/Interface.png';
+// import uiJson from './tileset/Interface.json';
 
 export default class Display {
   constructor(screenWidth, screenHeight) {
@@ -22,7 +24,7 @@ export default class Display {
     this.loaded = false;
     this.movingSprites = [];
     this.projectileSprites = [];
-    this.tileSize = {x: 16, y: 24};
+    this.tileSize = {x: 32, y: 32};
 
     this.app = new PIXI.Application({
       width: this.screenWidth * this.tileSize.x,
@@ -34,22 +36,10 @@ export default class Display {
     PIXI.settings.SCALE_MODE = PIXI.SCALE_MODES.NEAREST;
 
     PIXI.loader
-      .add(terrain)
-      .add(avatar)
-      .add(terrainObjects)
-      .add(monsters)
-      .add(items)
-      .add(projectiles)
-      .add(ui)
+      .add(tileset)
       .load(() => {
         this.loaded = true;
-        this.loadTileset(terrain, terrainJson, 'terrain');
-        this.loadTileset(terrainObjects, terrainObjectsJson, 'terrainObjects');
-        this.loadTileset(monsters, monstersJson, 'monsters');
-        this.loadTileset(avatar, avatarJson, 'avatar');
-        this.loadTileset(items, itemsJson, 'items');
-        this.loadTileset(projectiles, projectilesJson, 'projectiles');
-        this.loadTileset(ui, uiJson, 'ui');
+        this.loadTileset(tileset, tilesetJson, 'tileset');
         this.app.ticker.add(delta => this.animationLoop(delta));
         this.app.ticker.add(delta => this.projectileLoop(delta));
       });

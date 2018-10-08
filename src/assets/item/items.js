@@ -6,22 +6,22 @@ export const ItemRepository = new Repository({ name: "Items", ctor: Item });
 
 ItemRepository.define({
   name: "healing potion",
-  id: 63,
-  tileset: 'items',
+  id: 488,
+  tileset: 'tileset',
   fg: Colors.red
 });
 
 ItemRepository.define({
   name: "food",
-  id: 53,
-  tileset: 'items',
+  id: 827,
+  tileset: 'tileset',
   fg: Colors.orange
 });
 
 ItemRepository.define({
   name: "mana potion",
-  id: 60,
-  tileset: 'items',
+  id: 608,
+  tileset: 'tileset',
   fg: Colors.blue
 });
 // ItemRepository.define({
