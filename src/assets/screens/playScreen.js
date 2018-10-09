@@ -128,6 +128,32 @@ class playScreen {
     );
     this.game.display.app.stage.addChild(this.playerSprite);
     this.game.display.app.stage.addChild(this.levelSprites);
+    //minimap
+    this.minimap = new PIXI.Container();
+    // this.minimap.x = this.screenWidth * this.game.display.tileSize.x
+    this.minimap.x = this.game.screenWidth * this.game.display.tileSize.x;
+    for (let x = 0; x < this.level.map.width; x++) {
+      for (let y = 0; y < this.level.map.height; y++) {
+        let tile = this.level.map.getTile(x, y);
+        let pixel = new PIXI.Graphics();
+        pixel.beginFill(Colors.getHex(tile.fg));
+        pixel.drawRect(0, 0, 4, 4);
+        pixel.x = x * 4;
+        pixel.y = y * 4;
+        pixel.endFill();
+        pixel.alpha = 0;
+        this.minimap.addChild(pixel);
+      }
+    }
+    this.playerPixel = new PIXI.Graphics();
+    this.playerPixel.beginFill(Colors.getHex('#ffffff'));
+    this.playerPixel.drawRect(0, 0, 4, 4);
+    this.playerPixel.x = this.player.x * 4;
+    this.playerPixel.y = this.player.y * 4;
+    this.playerPixel.endFill();
+    this.playerPixel.alpha = 1;
+    this.minimap.addChild(this.playerPixel);
+    this.game.display.app.stage.addChild(this.minimap);
   }
 
   exit() {
@@ -220,10 +246,16 @@ class playScreen {
           this.levelSprites.addChild(bullet.sprite);
           const destx = x * this.game.display.tileSize.x;
           const desty = y * this.game.display.tileSize.y;
-          this.game.display.addProjectile(bullet.sprite, destx, desty, () => {
-            this.game.getEngine().unlock();
-            bullet.onDestination();
-          }, true);
+          this.game.display.addProjectile(
+            bullet.sprite,
+            destx,
+            desty,
+            () => {
+              this.game.getEngine().unlock();
+              bullet.onDestination();
+            },
+            true
+          );
         }, this)
       );
     }
@@ -334,16 +366,25 @@ class playScreen {
             sprite.y / this.game.display.tileSize.y == y
           );
         });
+        const minimapCell = this.minimap.children.find(
+          cell => cell.x / 4 == x && cell.y / 4 == y
+        );
         if (visibleTiles[x + ',' + y]) {
           sprite.alpha = 1;
+          minimapCell.alpha = 1;
         } else if (this.level.exploredTiles[x + ',' + y]) {
-          sprite.alpha = 0.1;
+          sprite.alpha = 0.3;
+          minimapCell.alpha = 0.4;
         }
         if (items[`${x},${y}`]) {
           sprite.alpha = 0;
         }
       }
     }
+
+    this.playerPixel.alpha = 1;
+    this.playerPixel.x = this.player.x * 4;
+    this.playerPixel.y = this.player.y * 4;
 
     // update items
     this.itemSprites.children.forEach(itemSprite => {

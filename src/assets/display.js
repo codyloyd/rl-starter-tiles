@@ -25,7 +25,8 @@ export default class Display {
     this.tileSize = {x: 16, y: 24};
 
     this.app = new PIXI.Application({
-      width: this.screenWidth * this.tileSize.x,
+      //extra width for the minimap
+      width: this.screenWidth * this.tileSize.x + this.screenWidth * 4,
       height: this.screenHeight * this.tileSize.y,
       resolution: 1,
       roundPixels: false
@@ -112,25 +113,18 @@ export default class Display {
   }
 
   moveSprite(sprite, x, y, onDestination) {
-    // if (rotate) {
-    //   const sX = x - sprite.x;
-    //   const sY = y - sprite.y;
-    //   const theta = Math.atan2(sY, sX);
-    //   sprite.anchor.set(0.5, 0.5);
-    //   sprite.rotation = theta;
-    //   // Because the anchor offsets the positioning..
-    //   // we need to move the sprite down
-    //   sprite.x += sprite.width / 2;
-    //   sprite.y += sprite.height / 2;
-    //   x += sprite.width / 2;
-    //   y += sprite.height / 2;
-    //   sprite.velocity = 6;
+    sprite.x = x 
+    sprite.y = y 
+    // const existing = this.movingSprites.find(obj => obj.sprite == sprite);
+    // if (existing) {
+    //   sprite.position.set(existing.destination[0], existing.destination[1])
+    //   this.movingSprites.splice(this.movingSprites.indexOf(existing), 1);
     // }
-    this.movingSprites.push({
-      sprite,
-      destination: [x, y],
-      onDestination
-    });
+    // this.movingSprites.push({
+    //   sprite,
+    //   destination: [x, y],
+    //   onDestination
+    // });
   }
 
   animationLoop(delta) {

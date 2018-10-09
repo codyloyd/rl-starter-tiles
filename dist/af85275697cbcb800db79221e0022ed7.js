@@ -48729,14 +48729,14 @@ var wallTileTemplate = {
   blocksLight: true,
   bitMask: 0,
   bitMaskMap: {
-    0: 48,
-    1: [48, 48, 48, 48, 49, 49, 50],
-    2: [48, 48, 48, 48, 49, 49, 50],
-    3: [48, 48, 48, 48, 49, 49, 50],
-    4: [48, 48, 48, 48, 49, 49, 50],
-    5: [48, 48, 48, 48, 49, 49, 50],
-    6: [48, 48, 48, 48, 49, 49, 50],
-    7: [48, 48, 48, 48, 49, 49, 50],
+    0: 120,
+    1: [120, 120, 120, 120, 121, 121, 122],
+    2: [120, 120, 120, 120, 121, 121, 122],
+    3: [120, 120, 120, 120, 121, 121, 122],
+    4: [120, 120, 120, 120, 121, 121, 122],
+    5: [120, 120, 120, 120, 121, 121, 122],
+    6: [120, 120, 120, 120, 121, 121, 122],
+    7: [120, 120, 120, 120, 121, 121, 122],
     8: [104, 104, 104, 104, 104, 104, 104, 104, 104, 105, 107],
     9: [104, 104, 104, 104, 104, 104, 104, 104, 104, 105, 107],
     10: [104, 104, 104, 104, 104, 104, 104, 104, 104, 105, 107],
@@ -48792,15 +48792,30 @@ var DungeonMap = function () {
       this.tiles[w] = new Array(height);
     }
 
+    // roomsncorridors:
     var generator = new _rotJs2.default.Map.Digger(width, height, {
       roomWidth: [6, 12],
       roomHeight: [6, 12],
       dugPercentage: 0.3
     });
 
-    generator.create(function (x, y, value) {
+    // cellular generator:
+    // const generator = new ROT.Map.Cellular(width, height, {
+    //   connected: true
+    // });
+    // generator.randomize(0.5);
+    // for (let i = 0; i < 4; i++) {
+    //   generator.create();
+    // }
+
+    //roomsncorridors
+    generator.create(
+    //cellular
+    // generator.connect(
+    function (x, y, value) {
+      // change the value here to 0 for  cellular
       this.tiles[x][y] = value == 1 ? new _tile.Tile(_tile.wallTileTemplate) : new _tile.Tile(_tile.floorTileTemplate);
-    }.bind(this));
+    }.bind(this), 1);
     // bitmasking
     this.tiles.forEach(function (col, x) {
       col.forEach(function (tile, y) {
@@ -49473,6 +49488,32 @@ var playScreen = function () {
       this.playerSprite.position.set((this.player.getX() - topLeftX) * this.game.display.tileSize.x, (this.player.getY() - topLeftY) * this.game.display.tileSize.y);
       this.game.display.app.stage.addChild(this.playerSprite);
       this.game.display.app.stage.addChild(this.levelSprites);
+      //minimap
+      this.minimap = new PIXI.Container();
+      // this.minimap.x = this.screenWidth * this.game.display.tileSize.x
+      this.minimap.x = this.game.screenWidth * this.game.display.tileSize.x;
+      for (var _x = 0; _x < this.level.map.width; _x++) {
+        for (var _y = 0; _y < this.level.map.height; _y++) {
+          var _tile = this.level.map.getTile(_x, _y);
+          var pixel = new PIXI.Graphics();
+          pixel.beginFill(_colors2.default.getHex(_tile.fg));
+          pixel.drawRect(0, 0, 4, 4);
+          pixel.x = _x * 4;
+          pixel.y = _y * 4;
+          pixel.endFill();
+          pixel.alpha = 0;
+          this.minimap.addChild(pixel);
+        }
+      }
+      this.playerPixel = new PIXI.Graphics();
+      this.playerPixel.beginFill(_colors2.default.getHex('#ffffff'));
+      this.playerPixel.drawRect(0, 0, 4, 4);
+      this.playerPixel.x = this.player.x * 4;
+      this.playerPixel.y = this.player.y * 4;
+      this.playerPixel.endFill();
+      this.playerPixel.alpha = 1;
+      this.minimap.addChild(this.playerPixel);
+      this.game.display.app.stage.addChild(this.minimap);
     }
   }, {
     key: 'exit',
@@ -49633,16 +49674,25 @@ var playScreen = function () {
           var sprite = this.mapSprites.children.find(function (sprite) {
             return sprite.x / _this3.game.display.tileSize.x == x && sprite.y / _this3.game.display.tileSize.y == y;
           });
+          var minimapCell = this.minimap.children.find(function (cell) {
+            return cell.x / 4 == x && cell.y / 4 == y;
+          });
           if (visibleTiles[x + ',' + y]) {
             sprite.alpha = 1;
+            minimapCell.alpha = 1;
           } else if (this.level.exploredTiles[x + ',' + y]) {
-            sprite.alpha = 0.1;
+            sprite.alpha = 0.3;
+            minimapCell.alpha = 0.4;
           }
           if (items[x + ',' + y]) {
             sprite.alpha = 0;
           }
         }
       }
+
+      this.playerPixel.alpha = 1;
+      this.playerPixel.x = this.player.x * 4;
+      this.playerPixel.y = this.player.y * 4;
 
       // update items
       this.itemSprites.children.forEach(function (itemSprite) {
@@ -50092,7 +50142,8 @@ var Display = function () {
     this.tileSize = { x: 16, y: 24 };
 
     this.app = new PIXI.Application({
-      width: this.screenWidth * this.tileSize.x,
+      //extra width for the minimap
+      width: this.screenWidth * this.tileSize.x + this.screenWidth * 4,
       height: this.screenHeight * this.tileSize.y,
       resolution: 1,
       roundPixels: false
@@ -50181,25 +50232,18 @@ var Display = function () {
   }, {
     key: 'moveSprite',
     value: function moveSprite(sprite, x, y, onDestination) {
-      // if (rotate) {
-      //   const sX = x - sprite.x;
-      //   const sY = y - sprite.y;
-      //   const theta = Math.atan2(sY, sX);
-      //   sprite.anchor.set(0.5, 0.5);
-      //   sprite.rotation = theta;
-      //   // Because the anchor offsets the positioning..
-      //   // we need to move the sprite down
-      //   sprite.x += sprite.width / 2;
-      //   sprite.y += sprite.height / 2;
-      //   x += sprite.width / 2;
-      //   y += sprite.height / 2;
-      //   sprite.velocity = 6;
+      sprite.x = x;
+      sprite.y = y;
+      // const existing = this.movingSprites.find(obj => obj.sprite == sprite);
+      // if (existing) {
+      //   sprite.position.set(existing.destination[0], existing.destination[1])
+      //   this.movingSprites.splice(this.movingSprites.indexOf(existing), 1);
       // }
-      this.movingSprites.push({
-        sprite: sprite,
-        destination: [x, y],
-        onDestination: onDestination
-      });
+      // this.movingSprites.push({
+      //   sprite,
+      //   destination: [x, y],
+      //   onDestination
+      // });
     }
   }, {
     key: 'animationLoop',
@@ -50397,7 +50441,7 @@ window.onload = function () {
     game.switchScreen(_startScreen2.default);
   }
 };
-},{"rot-js":43,"./screens/startScreen":8,"./messageDisplay":5,"./playerStatusDisplay":6,"./display":7}],276:[function(require,module,exports) {
+},{"rot-js":43,"./screens/startScreen":8,"./messageDisplay":5,"./playerStatusDisplay":6,"./display":7}],283:[function(require,module,exports) {
 
 var global = (1, eval)('this');
 var OldModule = module.bundle.Module;
@@ -50520,5 +50564,5 @@ function hmrAccept(bundle, id) {
     return hmrAccept(global.require, id);
   });
 }
-},{}]},{},[276,2])
+},{}]},{},[283,2])
 //# sourceMappingURL=/dist/af85275697cbcb800db79221e0022ed7.map

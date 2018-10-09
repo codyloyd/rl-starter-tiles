@@ -12,18 +12,34 @@ class DungeonMap {
       this.tiles[w] = new Array(height);
     }
 
+
+    // roomsncorridors:
     const generator = new ROT.Map.Digger(width, height, {
       roomWidth: [6, 12],
       roomHeight: [6, 12],
       dugPercentage: 0.3
     });
 
+    // cellular generator:
+    // const generator = new ROT.Map.Cellular(width, height, {
+    //   connected: true
+    // });
+    // generator.randomize(0.5);
+    // for (let i = 0; i < 4; i++) {
+    //   generator.create();
+    // }
+
+    //roomsncorridors
     generator.create(
+    //cellular
+    // generator.connect(
       function(x, y, value) {
+        // change the value here to 0 for  cellular
         this.tiles[x][y] = value == 1
           ? new Tile(wallTileTemplate)
           : new Tile(floorTileTemplate);
-      }.bind(this)
+      }.bind(this),
+      1
     );
     // bitmasking
     this.tiles.forEach((col, x) => {
