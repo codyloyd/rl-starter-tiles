@@ -8,8 +8,8 @@ import {floorTile, wallTile} from './tile';
 class Level {
   constructor(Game) {
     this.game = Game;
-    this.width = this.game.getScreenWidth() ;
-    this.height = this.game.getScreenHeight() * 2;
+    this.width = this.game.getScreenWidth() * 2;
+    this.height = this.game.getScreenHeight() * 4;
     this.entities = {};
     this.map = new DungeonMap({
       width: this.width,

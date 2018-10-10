@@ -48721,32 +48721,61 @@ var floorTileTemplate = {
   isWalkable: true
 };
 
+//trees
 var wallTileTemplate = {
   name: 'wallTile',
   id: 13,
-  tileset: 'terrain',
+  tileset: 'terrainObjects',
   fg: _colors2.default.lightGray,
   blocksLight: true,
   bitMask: 0,
   bitMaskMap: {
-    0: 120,
-    1: [120, 120, 120, 120, 121, 121, 122],
-    2: [120, 120, 120, 120, 121, 121, 122],
-    3: [120, 120, 120, 120, 121, 121, 122],
-    4: [120, 120, 120, 120, 121, 121, 122],
-    5: [120, 120, 120, 120, 121, 121, 122],
-    6: [120, 120, 120, 120, 121, 121, 122],
-    7: [120, 120, 120, 120, 121, 121, 122],
-    8: [104, 104, 104, 104, 104, 104, 104, 104, 104, 105, 107],
-    9: [104, 104, 104, 104, 104, 104, 104, 104, 104, 105, 107],
-    10: [104, 104, 104, 104, 104, 104, 104, 104, 104, 105, 107],
-    11: [104, 104, 104, 104, 104, 104, 104, 104, 104, 105, 107],
-    12: [104, 104, 104, 104, 104, 104, 104, 104, 104, 105, 107],
-    13: [104, 104, 104, 104, 104, 104, 104, 104, 104, 105, 107],
-    14: [104, 104, 104, 104, 104, 104, 104, 104, 104, 105, 107],
-    15: [104, 104, 104, 104, 104, 104, 104, 104, 104, 105, 107]
+    0: [125, 125, 125, 124, 126],
+    1: [125, 125, 125, 124, 126],
+    2: [125, 125, 125, 124, 126],
+    3: [125, 125, 125, 124, 126],
+    4: [125, 125, 125, 124, 126],
+    5: [125, 125, 125, 124, 126],
+    6: [125, 125, 125, 124, 126],
+    7: [125, 125, 125, 124, 126],
+    8: [125, 125, 125, 124, 126],
+    9: [125, 125, 125, 124, 126],
+    10: [125, 125, 125, 124, 126],
+    11: [125, 125, 125, 124, 126],
+    12: [125, 125, 125, 124, 126],
+    13: [125, 125, 125, 124, 126],
+    14: [125, 125, 125, 124, 126],
+    15: [125, 125, 125, 124, 126]
   }
 };
+
+//dirt
+// const wallTileTemplate = {
+//   name: 'wallTile',
+//   id: 13,
+//   tileset: 'terrain',
+//   fg: Colors.lightGray,
+//   blocksLight: true,
+//   bitMask: 0,
+//   bitMaskMap: {
+//     0: 120,
+//     1: [120,120,120,120,121,121,122],
+//     2: [120,120,120,120,121,121,122],
+//     3: [120,120,120,120,121,121,122],
+//     4: [120,120,120,120,121,121,122],
+//     5: [120,120,120,120,121,121,122],
+//     6: [120,120,120,120,121,121,122],
+//     7: [120,120,120,120,121,121,122],
+//     8: [104,104,104,104,104,104,104,104,104,105,107],
+//     9: [104,104,104,104,104,104,104,104,104,105,107],
+//     10: [104,104,104,104,104,104,104,104,104,105,107],
+//     11: [104,104,104,104,104,104,104,104,104,105,107],
+//     12: [104,104,104,104,104,104,104,104,104,105,107],
+//     13: [104,104,104,104,104,104,104,104,104,105,107],
+//     14: [104,104,104,104,104,104,104,104,104,105,107],
+//     15: [104,104,104,104,104,104,104,104,104,105,107]
+//   }
+// };
 
 exports.Tile = Tile;
 exports.floorTileTemplate = floorTileTemplate;
@@ -48793,28 +48822,33 @@ var DungeonMap = function () {
     }
 
     // roomsncorridors:
-    var generator = new _rotJs2.default.Map.Digger(width, height, {
-      roomWidth: [6, 12],
-      roomHeight: [6, 12],
-      dugPercentage: 0.3
-    });
+    // const generator = new ROT.Map.Digger(width, height, {
+    //   roomWidth: [6, 12],
+    //   roomHeight: [6, 12],
+    //   dugPercentage: 0.3
+    // });
 
     // cellular generator:
     // const generator = new ROT.Map.Cellular(width, height, {
     //   connected: true
     // });
-    // generator.randomize(0.5);
-    // for (let i = 0; i < 4; i++) {
-    //   generator.create();
-    // }
+    //forest
+    var generator = new _rotJs2.default.Map.Cellular(width, height, {
+      born: [6, 7, 8],
+      survive: [2, 3, 4, 5],
+      connected: true
+    });
+    generator.randomize(0.5);
+    for (var i = 0; i < 9; i++) {
+      generator.create();
+    }
 
     //roomsncorridors
-    generator.create(
+    // generator.create(
     //cellular
-    // generator.connect(
-    function (x, y, value) {
+    generator.connect(function (x, y, value) {
       // change the value here to 0 for  cellular
-      this.tiles[x][y] = value == 1 ? new _tile.Tile(_tile.wallTileTemplate) : new _tile.Tile(_tile.floorTileTemplate);
+      this.tiles[x][y] = value == 0 ? new _tile.Tile(_tile.wallTileTemplate) : new _tile.Tile(_tile.floorTileTemplate);
     }.bind(this), 1);
     // bitmasking
     this.tiles.forEach(function (col, x) {
@@ -49067,8 +49101,8 @@ var Level = function () {
     _classCallCheck(this, Level);
 
     this.game = Game;
-    this.width = this.game.getScreenWidth();
-    this.height = this.game.getScreenHeight() * 2;
+    this.width = this.game.getScreenWidth() * 2;
+    this.height = this.game.getScreenHeight() * 4;
     this.entities = {};
     this.map = new _dungeonMap2.default({
       width: this.width,
@@ -49492,14 +49526,15 @@ var playScreen = function () {
       this.minimap = new PIXI.Container();
       // this.minimap.x = this.screenWidth * this.game.display.tileSize.x
       this.minimap.x = this.game.screenWidth * this.game.display.tileSize.x;
+      this.minimap.background;
       for (var _x = 0; _x < this.level.map.width; _x++) {
         for (var _y = 0; _y < this.level.map.height; _y++) {
           var _tile = this.level.map.getTile(_x, _y);
           var pixel = new PIXI.Graphics();
           pixel.beginFill(_colors2.default.getHex(_tile.fg));
-          pixel.drawRect(0, 0, 4, 4);
-          pixel.x = _x * 4;
-          pixel.y = _y * 4;
+          pixel.drawRect(0, 0, 2, 2);
+          pixel.x = _x * 2;
+          pixel.y = _y * 2;
           pixel.endFill();
           pixel.alpha = 0;
           this.minimap.addChild(pixel);
@@ -49507,9 +49542,9 @@ var playScreen = function () {
       }
       this.playerPixel = new PIXI.Graphics();
       this.playerPixel.beginFill(_colors2.default.getHex('#ffffff'));
-      this.playerPixel.drawRect(0, 0, 4, 4);
-      this.playerPixel.x = this.player.x * 4;
-      this.playerPixel.y = this.player.y * 4;
+      this.playerPixel.drawRect(0, 0, 2, 2);
+      this.playerPixel.x = this.player.x * 2;
+      this.playerPixel.y = this.player.y * 2;
       this.playerPixel.endFill();
       this.playerPixel.alpha = 1;
       this.minimap.addChild(this.playerPixel);
@@ -49651,7 +49686,7 @@ var playScreen = function () {
 
       var visibleTiles = {};
       var exploredTiles = this.level.exploredTiles;
-      fov.compute(this.player.getX(), this.player.getY(), 10, function (x, y, r, visibility) {
+      fov.compute(this.player.getX(), this.player.getY(), 4, function (x, y, r, visibility) {
         visibleTiles[x + ',' + y] = true;
         exploredTiles[x + ',' + y] = true;
       });
@@ -49675,7 +49710,7 @@ var playScreen = function () {
             return sprite.x / _this3.game.display.tileSize.x == x && sprite.y / _this3.game.display.tileSize.y == y;
           });
           var minimapCell = this.minimap.children.find(function (cell) {
-            return cell.x / 4 == x && cell.y / 4 == y;
+            return cell.x / 2 == x && cell.y / 2 == y;
           });
           if (visibleTiles[x + ',' + y]) {
             sprite.alpha = 1;
@@ -49691,8 +49726,8 @@ var playScreen = function () {
       }
 
       this.playerPixel.alpha = 1;
-      this.playerPixel.x = this.player.x * 4;
-      this.playerPixel.y = this.player.y * 4;
+      this.playerPixel.x = this.player.x * 2;
+      this.playerPixel.y = this.player.y * 2;
 
       // update items
       this.itemSprites.children.forEach(function (itemSprite) {
@@ -50145,7 +50180,7 @@ var Display = function () {
       //extra width for the minimap
       width: this.screenWidth * this.tileSize.x + this.screenWidth * 4,
       height: this.screenHeight * this.tileSize.y,
-      resolution: 1,
+      resolution: 2,
       roundPixels: false
     });
     this.app.renderer.backgroundColor = 0x140c1c;
@@ -50232,18 +50267,23 @@ var Display = function () {
   }, {
     key: 'moveSprite',
     value: function moveSprite(sprite, x, y, onDestination) {
-      sprite.x = x;
-      sprite.y = y;
-      // const existing = this.movingSprites.find(obj => obj.sprite == sprite);
-      // if (existing) {
-      //   sprite.position.set(existing.destination[0], existing.destination[1])
-      //   this.movingSprites.splice(this.movingSprites.indexOf(existing), 1);
-      // }
-      // this.movingSprites.push({
-      //   sprite,
-      //   destination: [x, y],
-      //   onDestination
-      // });
+      // no animation
+      // sprite.x = x;
+      // sprite.y = y;
+
+      // animation
+      var existing = this.movingSprites.find(function (obj) {
+        return obj.sprite == sprite;
+      });
+      if (existing) {
+        sprite.position.set(existing.destination[0], existing.destination[1]);
+        this.movingSprites.splice(this.movingSprites.indexOf(existing), 1);
+      }
+      this.movingSprites.push({
+        sprite: sprite,
+        destination: [x, y],
+        onDestination: onDestination
+      });
     }
   }, {
     key: 'animationLoop',
@@ -50254,7 +50294,7 @@ var Display = function () {
         var x = movingSprite.destination[0];
         var y = movingSprite.destination[1];
         var sprite = movingSprite.sprite;
-        var vel = 4;
+        var vel = 5;
         var dx = 0;
         var dy = 0;
         if (x > sprite.x) {
@@ -50355,8 +50395,8 @@ var Game = function () {
     _classCallCheck(this, Game);
 
     console.log('game');
-    this.screenWidth = 60;
-    this.screenHeight = 26;
+    this.screenWidth = 24;
+    this.screenHeight = 12;
     this.scheduler = new _rotJs2.default.Scheduler.Speed();
     this.engine = new _rotJs2.default.Engine(this.scheduler);
     this.display = new _display2.default(this.screenWidth, this.screenHeight);
@@ -50441,7 +50481,7 @@ window.onload = function () {
     game.switchScreen(_startScreen2.default);
   }
 };
-},{"rot-js":43,"./screens/startScreen":8,"./messageDisplay":5,"./playerStatusDisplay":6,"./display":7}],283:[function(require,module,exports) {
+},{"rot-js":43,"./screens/startScreen":8,"./messageDisplay":5,"./playerStatusDisplay":6,"./display":7}],288:[function(require,module,exports) {
 
 var global = (1, eval)('this');
 var OldModule = module.bundle.Module;
@@ -50564,5 +50604,5 @@ function hmrAccept(bundle, id) {
     return hmrAccept(global.require, id);
   });
 }
-},{}]},{},[283,2])
+},{}]},{},[288,2])
 //# sourceMappingURL=/dist/af85275697cbcb800db79221e0022ed7.map

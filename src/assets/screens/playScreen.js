@@ -132,14 +132,15 @@ class playScreen {
     this.minimap = new PIXI.Container();
     // this.minimap.x = this.screenWidth * this.game.display.tileSize.x
     this.minimap.x = this.game.screenWidth * this.game.display.tileSize.x;
+    this.minimap.background;
     for (let x = 0; x < this.level.map.width; x++) {
       for (let y = 0; y < this.level.map.height; y++) {
         let tile = this.level.map.getTile(x, y);
         let pixel = new PIXI.Graphics();
         pixel.beginFill(Colors.getHex(tile.fg));
-        pixel.drawRect(0, 0, 4, 4);
-        pixel.x = x * 4;
-        pixel.y = y * 4;
+        pixel.drawRect(0, 0, 2, 2);
+        pixel.x = x * 2;
+        pixel.y = y * 2;
         pixel.endFill();
         pixel.alpha = 0;
         this.minimap.addChild(pixel);
@@ -147,9 +148,9 @@ class playScreen {
     }
     this.playerPixel = new PIXI.Graphics();
     this.playerPixel.beginFill(Colors.getHex('#ffffff'));
-    this.playerPixel.drawRect(0, 0, 4, 4);
-    this.playerPixel.x = this.player.x * 4;
-    this.playerPixel.y = this.player.y * 4;
+    this.playerPixel.drawRect(0, 0, 2, 2);
+    this.playerPixel.x = this.player.x * 2;
+    this.playerPixel.y = this.player.y * 2;
     this.playerPixel.endFill();
     this.playerPixel.alpha = 1;
     this.minimap.addChild(this.playerPixel);
@@ -331,7 +332,7 @@ class playScreen {
 
     const visibleTiles = {};
     const exploredTiles = this.level.exploredTiles;
-    fov.compute(this.player.getX(), this.player.getY(), 10, function(
+    fov.compute(this.player.getX(), this.player.getY(), 4, function(
       x,
       y,
       r,
@@ -367,7 +368,7 @@ class playScreen {
           );
         });
         const minimapCell = this.minimap.children.find(
-          cell => cell.x / 4 == x && cell.y / 4 == y
+          cell => cell.x / 2 == x && cell.y / 2 == y
         );
         if (visibleTiles[x + ',' + y]) {
           sprite.alpha = 1;
@@ -383,8 +384,8 @@ class playScreen {
     }
 
     this.playerPixel.alpha = 1;
-    this.playerPixel.x = this.player.x * 4;
-    this.playerPixel.y = this.player.y * 4;
+    this.playerPixel.x = this.player.x * 2;
+    this.playerPixel.y = this.player.y * 2;
 
     // update items
     this.itemSprites.children.forEach(itemSprite => {

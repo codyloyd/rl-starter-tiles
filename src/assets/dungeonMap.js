@@ -12,30 +12,35 @@ class DungeonMap {
       this.tiles[w] = new Array(height);
     }
 
-
     // roomsncorridors:
-    const generator = new ROT.Map.Digger(width, height, {
-      roomWidth: [6, 12],
-      roomHeight: [6, 12],
-      dugPercentage: 0.3
-    });
+    // const generator = new ROT.Map.Digger(width, height, {
+    //   roomWidth: [6, 12],
+    //   roomHeight: [6, 12],
+    //   dugPercentage: 0.3
+    // });
 
     // cellular generator:
     // const generator = new ROT.Map.Cellular(width, height, {
     //   connected: true
     // });
-    // generator.randomize(0.5);
-    // for (let i = 0; i < 4; i++) {
-    //   generator.create();
-    // }
+    //forest
+    const generator = new ROT.Map.Cellular(width, height, {
+      born: [6, 7, 8],
+      survive: [2, 3, 4, 5],
+      connected: true
+    });
+    generator.randomize(0.5);
+    for (let i = 0; i < 9; i++) {
+      generator.create();
+    }
 
     //roomsncorridors
-    generator.create(
+    // generator.create(
     //cellular
-    // generator.connect(
+    generator.connect(
       function(x, y, value) {
         // change the value here to 0 for  cellular
-        this.tiles[x][y] = value == 1
+        this.tiles[x][y] = value == 0
           ? new Tile(wallTileTemplate)
           : new Tile(floorTileTemplate);
       }.bind(this),

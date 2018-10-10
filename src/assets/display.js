@@ -28,7 +28,7 @@ export default class Display {
       //extra width for the minimap
       width: this.screenWidth * this.tileSize.x + this.screenWidth * 4,
       height: this.screenHeight * this.tileSize.y,
-      resolution: 1,
+      resolution: 2,
       roundPixels: false
     });
     this.app.renderer.backgroundColor = 0x140c1c;
@@ -113,18 +113,21 @@ export default class Display {
   }
 
   moveSprite(sprite, x, y, onDestination) {
-    sprite.x = x 
-    sprite.y = y 
-    // const existing = this.movingSprites.find(obj => obj.sprite == sprite);
-    // if (existing) {
-    //   sprite.position.set(existing.destination[0], existing.destination[1])
-    //   this.movingSprites.splice(this.movingSprites.indexOf(existing), 1);
-    // }
-    // this.movingSprites.push({
-    //   sprite,
-    //   destination: [x, y],
-    //   onDestination
-    // });
+    // no animation
+    // sprite.x = x;
+    // sprite.y = y;
+
+    // animation
+    const existing = this.movingSprites.find(obj => obj.sprite == sprite);
+    if (existing) {
+      sprite.position.set(existing.destination[0], existing.destination[1])
+      this.movingSprites.splice(this.movingSprites.indexOf(existing), 1);
+    }
+    this.movingSprites.push({
+      sprite,
+      destination: [x, y],
+      onDestination
+    });
   }
 
   animationLoop(delta) {
@@ -132,7 +135,7 @@ export default class Display {
       const x = movingSprite.destination[0];
       const y = movingSprite.destination[1];
       const sprite = movingSprite.sprite;
-      const vel = 4;
+      const vel = 5;
       let dx = 0;
       let dy = 0;
       if (x > sprite.x) {
